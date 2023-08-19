@@ -1,0 +1,47 @@
+.searchBox img{
+    position : absolute;
+    margin-top: 65px;
+    margin-left: 20px;
+    width: 55px;
+}
+
+#searchBox{
+    text-align: center;
+    font-weight: bold;
+    font-size: 25px;
+    width: 800px;
+    height: 79px;
+
+    border-radius: 30px;
+    border-style: solid;
+    border-width: 5px;
+    border-color: #A0136A;
+
+    margin-top: 50px;
+    margin-bottom: 70px;
+}
+
+input:focus {outline: 1px solid #d849a1;}
+
+.recent{
+    margin-bottom: 68px;
+}
+
+#nic_text {
+    text-align: left;
+    font-size: 25px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.col{
+    width: 500px;
+    height: 192px;
+    background-size: 400px;
+    background-color: #d849a1;
+    margin: 20px;
+}
+
+.container1{
+    width: 80%;
+}

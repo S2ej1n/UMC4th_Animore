@@ -1,0 +1,204 @@
+/* 모달창을 화면 중앙. 최상단에 노출 */
+.container {
+    /* 모달창 크기 */
+    width: 700px;
+    height: 950px;
+  
+    /* 최상단 위치 */
+    z-index: 999;
+    
+    /* 중앙 배치 */
+    /* top, bottom, left, right 는 브라우저 기준으로 작동한다. */
+    /* translate는 본인의 크기 기준으로 작동한다. */
+    position: absolute;
+    top: 53%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  
+    /* 모달창 디자인 */
+    background-color: white;
+    border: 1px solid black;
+
+    padding: 30px;
+  }
+  
+  /* 모달창 내부 X버튼 */
+  .close {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    border: none;
+    background-color: white;
+  }
+
+  .review_title{
+    font-weight: bold;
+    font-size: 22px;
+  }
+  .review_line{
+    background-color: #A0136A;
+    height: 2px;
+    margin-bottom: 10px;
+  }
+
+  .review_input{
+    width: 640px;
+    height: 300px;
+    border: 2px solid #808080;
+    font-size: 15px;
+    margin-bottom: 10px;
+    resize: none;
+    margin-top: -10px;
+    padding: 10px;
+  }
+  .review_input:focus {outline: 0px solid #d849a1;}
+
+  .review_text{
+    font-size: 15px;
+  }
+
+  .review_text img {
+    margin-left: 5px;
+    width: 17px;
+    margin-bottom: 3px;
+  }
+
+  .review_text img:hover{
+    cursor: pointer;
+  }
+  
+  /*별점 넣기*/
+  .review_text2{
+    margin-top: 8px;
+    font-size: 15px;
+  }
+
+  .star_Box{
+    clear: both;
+    margin-bottom: 10px;
+    display: flex; 
+    flex-direction: column; 
+  }
+  
+  .starline{
+    clear: both;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+
+  .review_star{
+    margin-left: 245px;
+    width: 180px;
+    height: 36px;
+  }
+  .review_button{
+    margin-left: 218px;
+    width: 200px; height: 50px; margin-right: 12px; margin-top: 10px;
+    border: none;background-color: #B33E86;color: white;
+    font-size: 20px; border-radius: 50px;
+    font-weight: 600;
+  }
+  .review_button:hover{transform: translateY(-3px);}
+
+  /*글자수 세는 부분*/
+  #text_length{
+    color: #A0136A;
+    font-size: 18px;
+    text-align: right;
+    margin-top: -20px;
+    margin-bottom: 5px;
+  }
+
+  /*업체 사진*/
+
+.r_info_Box{
+  clear: both;
+  display: flex; 
+  flex-direction: column; 
+}
+/*정보*/
+.comp_info_box{
+  margin-top: 10px;
+}
+
+.comp_info{
+  margin-left: 130px;
+  margin-right: 20px;
+}
+
+.info_text{
+  text-align: left;
+  font-size: 15px;
+}
+
+#title{
+  font-size: 20px;
+  font-weight: 600;
+}
+
+#tag{
+  margin-left: 20px;
+  font-size: 16px;
+  font-weight: 500;
+}
+
+/*사진 업로드*/
+.imgUpload_Box{
+  clear: both;
+  margin-bottom: 10px;
+  display: flex; 
+  flex-direction: column; justify-content: center;
+}
+
+.imgUpload{
+  clear: both;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.im1{
+  background-color:#FAE5F2;
+  width: 180px;
+  height: 140px;
+  margin-right: 15px;
+  margin-left: 15px;
+
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.plusImage {
+  margin-top: 35px;
+  height: 70px;
+}
+
+.uploadedImage {
+  width: 100%;
+  height: auto;
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+
+/*업로드 기능*/
+#UploadImg1 {
+  display: none;
+}
+
+#UploadImg2 {
+  display: none;
+}
+
+#UploadImg3 {
+  display: none;
+}
+
+.UploadImgButton:hover{
+  cursor: pointer;
+}

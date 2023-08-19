@@ -1,0 +1,146 @@
+.info{
+    text-align: center;
+    margin: 0 auto;
+    margin-top: 50px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+/*이미지*/
+.comp_image {
+    position: relative;
+    margin-left: 10px;
+    margin-right: 10px;
+    width: 650px;
+    height: 508px;
+}
+
+.comp_image img{
+    position: absolute;
+    top: 0;
+    left: 0;
+    transform: translate(50, 50);
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    margin: auto;
+
+    border-style: solid;
+    border-color: #B33E86;
+    border-width: 5px;
+    border-radius: 30px;
+}
+
+/*버튼*/
+#pickbut{
+    margin-top: 15px;
+    margin-right: 20px;
+    width: 150px;
+}
+
+#catbut{
+    margin-top: 15px;
+    width: 150px;
+}
+
+.button3{ margin-top: 15px;}
+
+#heart_but{
+    width: 200px; height: 61px; margin-right: 12px; margin-top: 15px;
+    border: none;background-color: #B33E86;color: white;
+    font-size: 25px;
+}
+
+#heart_but:hover{transform: translateY(-3px);}
+
+
+#book_but{
+    width: 200px; height: 61px; margin-right: 12px; margin-top: 15px;
+    border: none;background-color: #B33E86;color: white;
+    font-size: 25px;
+}
+#book_but:hover{transform: translateY(-3px);}
+
+#review_but{
+    width: 200px; height: 61px; margin-right: 12px; margin-top: 15px;
+    border: none;background-color: #B33E86;color: white;
+    font-size: 25px;
+}
+#review_but:hover{transform: translateY(-3px);}
+
+/*정보*/
+.comp_info_box{
+    margin-top: 10px;
+}
+
+.comp_info{
+    margin-left: 130px;
+    margin-right: 20px;
+}
+
+.info_text{
+    text-align: left;
+    font-size: 20px;
+}
+
+#title{
+    font-size: 30px;
+    font-weight: 600;
+}
+
+#tag{
+    margin-left: 20px;
+    font-size: 16px;
+    font-weight: 500;
+}
+
+/*리뷰*/
+
+.review_box{
+    margin-top: 50px;
+    clear: both;
+    font-weight: 600;
+    margin-bottom: 10px;
+    display: flex; 
+    flex-direction: column; justify-content: center;
+}
+
+#re_text{font-size: 25px; text-align: left; margin-left: 120px;}
+
+.review{
+    clear: both;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.re1{
+    border-style: solid;
+    border-color: #B33E86;
+    width: 450px;
+    height: 200px;
+    margin-left: 25px;
+    margin-right: 25px;
+
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    overflow: hidden;
+}
+
+.re1 img{
+    width: 150px;
+    margin-right: 20px;
+}
+
+.re1 p{
+    padding-top: 5px;
+}
+
+.re1:hover{
+    cursor: pointer;
+}
