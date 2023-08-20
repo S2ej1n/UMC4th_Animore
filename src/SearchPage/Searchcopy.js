@@ -45,44 +45,62 @@ function Search() {
   const [ShopInfoList, setShopInfoList] = useState([]);
 
   //--------------------------API연결--------------------------------
-  //인기순 호출
-
-  useEffect(()=>{
-    axios.all([
-      axios.get('/search/name/best', {
-        params: { query: searchText },
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }),
-      axios.get('/search/location/best', {
-        params: { query: searchText },
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }),
-      axios.get('/search/hashtags/best', {
-        params: { query: searchText },
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
+  const query1 = encodeURIComponent('해시태그:' + searchText);
+  const query2 = encodeURIComponent(searchText);
+  //서버 요청 주소
+  const shopApiUrl = `/search/distance?query1=${query1}&query2=${query2}`;
+  useEffect(() => {
+    axios.get(shopApiUrl, {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    })
+      .then(response => {
+        // API 호출 성공 시 데이터를 상태에 저장
+        setShopInfoList(response.data.result);
       })
-    ]
-    )
-    .then(
-      axios.spread((nameR, locationR, hashtagsR)=>{
-      const nameData = nameR.data.result;
-      const locationData = locationR.data.result;
-      const hashtagsData = hashtagsR.data.result;
+      .catch(error => {
+        // API 호출 실패 시 에러 처리
+        console.error('API 호출 에러:', error);
+      });
+  }, []); // []는 컴포넌트가 마운트될 때 한 번만 실행됨
 
-      const combinedData = [...nameData, ...locationData, ...hashtagsData];
-      setShopInfoList(combinedData);
-      console.log(combinedData);
-      })
-    )
-    .catch(() => {});
-  },[]);
+  // useEffect(()=>{
+  //   axios.all([
+  //     axios.get('/search/name/best', {
+  //       params: { query: searchText },
+  //       headers: {
+  //         Authorization: `Bearer ${token}`,
+  //       },
+  //     }),
+  //     axios.get('/search/location/best', {
+  //       params: { query: searchText },
+  //       headers: {
+  //         Authorization: `Bearer ${token}`,
+  //       },
+  //     }),
+  //     axios.get('/search/hashtags/best', {
+  //       params: { query: searchText },
+  //       headers: {
+  //         Authorization: `Bearer ${token}`,
+  //       },
+  //     })
+  //   ]
+  //   )
+  //   .then(
+  //     axios.spread((nameR, locationR, hashtagsR)=>{
+  //     const nameData = nameR.data.result;
+  //     const locationData = locationR.data.result;
+  //     const hashtagsData = hashtagsR.data.result;
 
+  //     const combinedData = [...nameData, ...locationData, ...hashtagsData];
+  //     setShopInfoList(combinedData);
+  //     console.log(combinedData);
+  //     })
+  //   )
+  //   .catch(() => {});
+  // },[]);
+  //-----------------------------------------------------------
   // async function getAllPopularData() {
   //   const nameRequest = axios.get('/search/name/best', {
   //     params: { query: searchText },
@@ -129,7 +147,6 @@ function Search() {
   //     console.error(error);
   //   }
   // }
-
   // useEffect(() => {
   //   getAllPopularData();
   // });
@@ -137,7 +154,6 @@ function Search() {
   {/*페이지네이션을 위한 state들 */ }
   const [limit] = useState(4);
   const [page, setPage] = useState(1);
-
   //const offset = (page - 1) * limit;
 
   const [currentShopInfo, setCurrentShopInfo] = useState([]);
@@ -158,7 +174,9 @@ function Search() {
   const mapShopInfo = () => {
     return currentShopInfo.map((shop) => (
       <div key={shop.storeId} className='co1'>
-        <img id='com_img' src='/img/rectangle76.png' alt='shop_image' />
+        <img id='com_img' 
+        src={shop.storeImageUrl ? shop.storeImageUrl : '/img/rectangle76.png'}
+        alt='shopImage' />
         <p id='com_name'>{shop.storeName}</p>
         <div id='com_info'>
           <p>{shop.storeLocation}</p>
@@ -170,10 +188,11 @@ function Search() {
               </span>
             ))}
           </div>
-          {/*<p>{shop.tags}</p>*/}
           <div id='num_but'>
             <p>전화번호: {shop.storeNumber}</p>
-            <button id='b_but' onClick={navigateToCompany}>지금바로 예약하기</button>
+            <button id='b_but' 
+            onClick={navigateToCompany}>
+              지금바로 예약하기</button>
           </div>
         </div>
       </div>
@@ -186,7 +205,7 @@ function Search() {
       return (mapShopInfo());
     }
     else {
-      return (<p>검색 결과가 없습니다.</p>);
+      return (<p id='not_search'><span id='not_search_text'>{searchText}</span> 에 대한 검색 결과가 없습니다.</p>);
     }
   }
   //---------------------------------------------------
@@ -216,11 +235,19 @@ function Search() {
 
       {/*페이지네이션 버튼 */}
       <footer className="Pagina">
-        <Pagination
+        {ShopInfoList.length > 0 && (
+          <Pagination
+            total={ShopInfoList.length}
+            limit={limit}
+            page={page}
+            setPage={setPage}
+          />
+        )}
+        {/* <Pagination
           total={ShopInfoList.length}
           limit={limit}
           page={page}
-          setPage={setPage} />
+          setPage={setPage} /> */}
       </footer>
       <div id='line'></div>
     </div>

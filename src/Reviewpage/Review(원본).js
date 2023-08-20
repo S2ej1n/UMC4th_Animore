@@ -1,7 +1,6 @@
 import styles from './ModalBasic.module.css';
 import './Upload.css';
 import { useState } from 'react';
-import axios from 'axios';
 
 function Review({ setModalOpen }){
     // 모달 끄기 
@@ -11,13 +10,9 @@ function Review({ setModalOpen }){
 
     const [inputCount, setInputCount] = useState(0);
 
-    //후기 내용 저장
-    const [inputValue, setInputValue] = useState('');
 
     const onInputHandler = (e) => {
-        const inputText = e.target.value.length
-        setInputCount(inputText);
-        setInputValue(inputText.length);
+        setInputCount(e.target.value.length);
     };
 
     //이미지 업로드
@@ -108,15 +103,6 @@ function Review({ setModalOpen }){
     const handleImageDelete = () => {
         setImageSrc('');
       };
-
-    //-----API-------------------------------------------------------------------
-    const post_Reivew_Server = () => {
-        const reviewData = {
-            text: inputValue, //후기
-            //images: [imageSrc, imageSrc2, imageSrc3].filter(src => src !== ''),
-        };
-    }
-    //---------------------------------------------------------------------------
 
     return (
         <div className={styles.container}>
@@ -209,8 +195,7 @@ function Review({ setModalOpen }){
             </div>
             </div>
 
-            <button className={styles.review_button}
-            onClick={post_Reivew_Server}>작성하기</button>
+            <button className={styles.review_button}>작성하기</button>
             </div>
         </div>
     );

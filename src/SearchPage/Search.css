@@ -65,6 +65,7 @@
 
 .co1 img{
     height: 390px;
+    width: 350.5px;
     margin-bottom: 10px;
 }
 
@@ -78,20 +79,23 @@
     border-color: #B33E86;
     text-align: left;
     width: 350px;
+    height: 170px;
     padding: 10px;
     margin-bottom: 30px;
 }
 
+/*전화번호랑 예약하기*/
 #num_but{
+    margin-top: 15px;
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    justify-content: center;
+    justify-content: start;
     overflow: hidden;
 }
 
 #b_but{
-    margin-left: 10px;
+    margin-left: 27px;
     border: none;
     color: white;
     background-color: #A0136A;
@@ -103,4 +107,12 @@
 
 #b_but:hover{
     background-color: #b8257f;
+}
+
+#not_search{
+    font-size: 16px;
+    margin-bottom: 50px;
+}
+#not_search_text {
+    font-weight: 600;
 }
