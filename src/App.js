@@ -3,7 +3,7 @@ import { Routes, Route, Link } from 'react-router-dom'
 import './Nav.css';
 import Book from './Bookpage/Book.js'
 import Company from './CompPage/Company.js'
-import Search from './SearchPage/Searchcopy'
+import Search from './SearchPage/Search0820'
 
 /*곧 삭제할거임*/
 import ExampleAx from './AxiosExample/exam.js';
@@ -29,7 +29,7 @@ function App() {
 
       <Routes>
         <Route path="/book" element={ <Book /> } />
-        <Route path="/company" element={ <Company/> } />
+        <Route path="/shop/:storeId" element={ <Company/> } />
         <Route path="/search/:searchText" element={ <Search/> } />
 
         <Route path="/examax" element={ <ExampleAx/> } />

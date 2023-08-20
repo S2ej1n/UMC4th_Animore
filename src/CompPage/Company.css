@@ -48,25 +48,28 @@
 .button3{ margin-top: 15px;}
 
 #heart_but{
-    width: 200px; height: 61px; margin-right: 12px; margin-top: 15px;
+    width: 200px; height: 57px; margin-right: 12px; margin-top: 15px;
     border: none;background-color: #B33E86;color: white;
     font-size: 25px;
+    border-radius: 25px;
 }
 
 #heart_but:hover{transform: translateY(-3px);}
 
 
 #book_but{
-    width: 200px; height: 61px; margin-right: 12px; margin-top: 15px;
+    width: 200px; height: 57px; margin-right: 12px; margin-top: 15px;
     border: none;background-color: #B33E86;color: white;
     font-size: 25px;
+    border-radius: 25px;
 }
 #book_but:hover{transform: translateY(-3px);}
 
 #review_but{
-    width: 200px; height: 61px; margin-right: 12px; margin-top: 15px;
+    width: 200px; height: 57px; margin-right: 12px; margin-top: 15px;
     border: none;background-color: #B33E86;color: white;
     font-size: 25px;
+    border-radius: 25px;
 }
 #review_but:hover{transform: translateY(-3px);}
 

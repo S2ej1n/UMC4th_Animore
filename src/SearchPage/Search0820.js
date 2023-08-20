@@ -34,8 +34,8 @@ function Search() {
 
   //페이지이동 
   const navigate = useNavigate()
-  const navigateToCompany = () => {
-    navigate("/company");
+  const navigateToCompany = (storeId) => {
+    navigate(`/shop/${storeId}`);
   }
 
   //검색어 전달받는 친구
@@ -63,7 +63,7 @@ function Search() {
         // API 호출 실패 시 에러 처리
         console.error('API 호출 에러:', error);
       });
-  }, []); // []는 컴포넌트가 마운트될 때 한 번만 실행됨
+  }, []); //컴포넌트가 마운트될 때 한 번만 실행되도록 []
 
   // useEffect(()=>{
   //   axios.all([
@@ -191,7 +191,7 @@ function Search() {
           <div id='num_but'>
             <p>전화번호: {shop.storeNumber}</p>
             <button id='b_but' 
-            onClick={navigateToCompany}>
+            onClick={() => navigateToCompany(shop.storeId)}>
               지금바로 예약하기</button>
           </div>
         </div>

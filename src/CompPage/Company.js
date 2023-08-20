@@ -27,7 +27,7 @@ function Company(){
            <div className="info">
             <div className='comp_image_box'>
                 <div className="comp_image">
-                    <img id='comp_img' src='img/example2.png'></img>  
+                    <img id='comp_img' src='/img/example2.png'></img>  
                 </div>
             </div>
 
@@ -40,8 +40,8 @@ function Company(){
                         <p id='locat'>위치: 부산광역시 OO구 OO로 OO번길</p>
                         <p id='ph_num'>전화번호: 010-000-0000</p>
                         <p id='rec_book'>최근 예약건수: 10회</p>
-                        <img id='pickbut' src='img/pickup.png'/>
-                        <img id='catbut' src='img/cat.png'/>
+                        <img id='pickbut' src='/img/pickup.png'/>
+                        <img id='catbut' src='/img/cat.png'/>
                         <div className='button3'>
                             <button id='heart_but'><span id="h_icon">♡</span> 200</button>
                             <button id='book_but'>예약하기</button>
@@ -57,16 +57,16 @@ function Company(){
             <p id='re_text'>이용후기</p>
             <div className="review">
                 <div className='re1' onClick={showRead}>
-                    <img src='img/dog.png' />
+                    <img src='/img/dog.png' />
                     <p>미용 싫어하는 금쪽이의 변화</p>
                 </div>
                 {readOpen && <ReadPage setReadOpen={setReadOpen}/>}
                 <div className='re1'>
-                    <img src='img/image58.png' />
+                    <img src='/img/image58.png' />
                     <p>미용 싫어하는 금쪽이의 변화</p>
                 </div>
                 <div className='re1'>
-                    <img src='img/image59.png' />
+                    <img src='/img/image59.png' />
                     <p>미용 싫어하는 금쪽이의 변화</p>
                 </div>
             </div>
