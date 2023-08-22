@@ -7,6 +7,7 @@ import Search from './SearchPage/Search0820'
 
 /*곧 삭제할거임*/
 import ExampleAx from './AxiosExample/exam.js';
+import Review from './Reviewpage/Review';
 
 function App() {
   return (

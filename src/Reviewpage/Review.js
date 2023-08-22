@@ -1,9 +1,11 @@
 import styles from './ModalBasic.module.css';
 import './Upload.css';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import axios from 'axios';
+import Company from '../CompPage/Company';
 
-function Review({ setModalOpen }){
+function Review({ setModalOpen, shopInfoList, storeId, token}){
+
     // 모달 끄기 
     const closeModal = () => {
         setModalOpen(false);
@@ -13,7 +15,6 @@ function Review({ setModalOpen }){
 
     //후기 내용 저장
     const [inputValue, setInputValue] = useState('');
-
     const onInputHandler = (e) => {
         const inputText = e.target.value.length
         setInputCount(inputText);
@@ -109,14 +110,28 @@ function Review({ setModalOpen }){
         setImageSrc('');
       };
 
-    //-----API-------------------------------------------------------------------
-    const post_Reivew_Server = () => {
-        const reviewData = {
-            text: inputValue, //후기
-            //images: [imageSrc, imageSrc2, imageSrc3].filter(src => src !== ''),
-        };
+    //-----0822리뷰전송API----------------------------------------------------------
+    const encodeinputValue = encodeURIComponent(inputValue)
+
+    const data = {
+        reviewContent: inputValue
     }
-    //---------------------------------------------------------------------------
+    const post_Reivew_Server = () => {
+        axios.post(`/reviews/create?storeId=${storeId}&petId=1&reviewContent=${encodeinputValue}&reviewLike=4.0`,
+            {reviewContent: inputValue}, 
+            {
+            headers: {
+              Authorization: `Bearer ${token}`
+            }
+            })
+          .then(response => {
+            console.log('서버 응답:', response.data);
+          })
+          .catch(error => {
+            console.error('오류 발생:', error);
+          });
+      };
+    //----------------------------------------------------------------
 
     return (
         <div className={styles.container}>
@@ -137,10 +152,21 @@ function Review({ setModalOpen }){
                 <div className={styles.comp_info_box}>
                     <div className="comp_info">
                         <div className={styles.info_text}>
-                            <p id={styles.title}>봉봉살롱<span id='tag'>#가위컷 전문 #베넷미용 #포메라니안</span></p>
-                            <p id={styles.locat}>위치: 부산광역시 OO구 OO로 OO번길</p>
-                            <p id={styles.ph_num}>전화번호: 010-000-0000</p>
-                            <p id={styles.rec_book}>최근 예약건수: 10회</p>
+                            <p id={styles.title}>{shopInfoList.storeName}
+                            {shopInfoList.tags && (
+                                    <span id='tag'>
+                                        {shopInfoList.tags.map((tag, index) => (
+                                            <span key={index}>
+                                                {index > 0 ? " " : ""}
+                                                #{tag}
+                                            </span>
+                                        ))}
+                                        {/*#가위컷 전문 #베넷미용 #포메라니안*/}
+                                    </span>
+                                )}</p>
+                            <p id={styles.locat}>위치: {shopInfoList.storeLocation}</p>
+                            <p id={styles.ph_num}>전화번호: {shopInfoList.storeNumber}</p>
+                            <p id={styles.rec_book}>최근 예약건수: {shopInfoList.storeRecent}회</p>
                         </div>
                     </div>
                 </div>
