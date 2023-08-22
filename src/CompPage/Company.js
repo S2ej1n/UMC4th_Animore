@@ -31,7 +31,6 @@ function Company() {
     const { storeId } = useParams();
 
     const strId = {storeId}
-    console.log (strId)
 
     useEffect(() => {
         axios.get(`/search/${storeId}`, {

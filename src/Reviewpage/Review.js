@@ -16,9 +16,9 @@ function Review({ setModalOpen, shopInfoList, storeId, token }) {
     //후기 내용 저장
     const [inputValue, setInputValue] = useState('');
     const onInputHandler = (e) => {
-        const inputText = e.target.value.length
-        setInputCount(inputText);
-        setInputValue(inputText.length);
+        const inputText = e.target.value
+        setInputCount(inputText.length);
+        setInputValue(inputText);
     };
 
     //이미지 업로드
@@ -31,7 +31,10 @@ function Review({ setModalOpen, shopInfoList, storeId, token }) {
     const [imageUploaded3, setImageUploaded3] = useState(false);
 
     //0822 서버 전송을 위한 이미지 파일 데이터 저장 변수 추가
-    const [imageFile, setImageFile] = useState(null);
+    const [imageFile1, setImageFile1] = useState(null);
+    const [imageFile2, setImageFile2] = useState(null);
+    const [imageFile3, setImageFile3] = useState(null);
+
 
     //첫번째 이미지
     const encodeFileToBase64 = (fileBlob) => {
@@ -51,13 +54,13 @@ function Review({ setModalOpen, shopInfoList, storeId, token }) {
         if (file) {
             encodeFileToBase64(file).then(() => {
                 setImageUploaded(true); // 이미지 업로드가 완료되면 상태 업데이트
-                setImageFile(file); // 이미지 파일 설정 (저장)
+                setImageFile1(file); // 이미지 파일 설정 (저장)
                 console.log(file)
             });
         } else {
             setImageSrc('');
             setImageUploaded(false); // 이미지가 없는 경우 상태 업데이트
-            setImageFile(null);
+            setImageFile1(null);
         }
     };
 
@@ -79,10 +82,13 @@ function Review({ setModalOpen, shopInfoList, storeId, token }) {
         if (file) {
             encodeFileToBase64_2(file).then(() => {
                 setImageUploaded2(true); // 이미지 업로드가 완료되면 상태 업데이트
+                setImageFile2(file); // 이미지 파일 설정 (저장)
+                console.log(file)
             });
         } else {
             setImageSrc2('');
             setImageUploaded2(false); // 이미지가 없는 경우 상태 업데이트
+            setImageFile2(null);
         }
     };
 
@@ -104,10 +110,12 @@ function Review({ setModalOpen, shopInfoList, storeId, token }) {
         if (file) {
             encodeFileToBase64_3(file).then(() => {
                 setImageUploaded3(true); // 이미지 업로드가 완료되면 상태 업데이트
+                setImageFile3(file); // 이미지 파일 설정 (저장)
             });
         } else {
             setImageSrc3('');
             setImageUploaded3(false); // 이미지가 없는 경우 상태 업데이트
+            setImageFile3(null);
         }
     };
 
@@ -117,19 +125,24 @@ function Review({ setModalOpen, shopInfoList, storeId, token }) {
     };
 
     //-----0822리뷰전송API----------------------------------------------------------
-    const encodeinputValue = encodeURIComponent(inputValue)
 
-    const data = {
-        reviewContent: inputValue
-    }
     const post_Reivew_Server = () => {
+        //const encodeinputValue = encodeURIComponent(inputValue)
 
         //이미지 파일을 FormData에 첨부
         const formData = new FormData();
-        formData.append('images', imageFile);
-        formData.append('reviewContent', inputValue);
+        //0822(2)이미지 여러개 보낼거라서 이렇게 수정
+        const imageFiles = [imageFile1, imageFile2, imageFile3];
+        //이미지 파일 추가
+        imageFiles.forEach((imageFile) => {
+            if (imageFile) {
+            formData.append(`images`, imageFile);
+            }
+        });
+        //formData.append('reviewContent', encodeinputValue);
+        console.log(inputValue)
 
-        axios.post(`/reviews/create?storeId=${storeId}&reviewLike=4.0&reviewContent=${encodeinputValue}`,
+        axios.post(`/reviews/create?storeId=${storeId}&reviewLike=4.0&reviewContent=${inputValue}`,
             formData, //전송할 자료
             {
                 headers: {
