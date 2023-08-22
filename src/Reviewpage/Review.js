@@ -21,6 +21,9 @@ function Review({ setModalOpen, shopInfoList, storeId, token }) {
         setInputValue(inputText);
     };
 
+    //별점추가0823-----------------------------------------------
+    const [selectedStar, setSelectedStar] = useState(5.0); // 기본값 설정
+
     //이미지 업로드
     const [imageSrc, setImageSrc] = useState('');
     const [imageSrc2, setImageSrc2] = useState('');
@@ -119,13 +122,7 @@ function Review({ setModalOpen, shopInfoList, storeId, token }) {
         }
     };
 
-    //이미지 지우기
-    const handleImageDelete = () => {
-        setImageSrc('');
-    };
-
     //-----0822리뷰전송API----------------------------------------------------------
-
     const post_Reivew_Server = () => {
         //const encodeinputValue = encodeURIComponent(inputValue)
 
@@ -142,7 +139,7 @@ function Review({ setModalOpen, shopInfoList, storeId, token }) {
         //formData.append('reviewContent', encodeinputValue);
         console.log(inputValue)
 
-        axios.post(`/reviews/create?storeId=${storeId}&reviewLike=4.0&reviewContent=${inputValue}`,
+        axios.post(`/reviews/create?storeId=${storeId}&reviewLike=${selectedStar}&reviewContent=${inputValue}`,
             formData, //전송할 자료
             {
                 headers: {
@@ -202,7 +199,19 @@ function Review({ setModalOpen, shopInfoList, storeId, token }) {
                 <div className={styles.star_Box}>
                     <div className={styles.starline}>
                         <p className={styles.review_text2}>전반적인 서비스가 어떠셨나요? </p>
-                        <img className={styles.review_star} src='/img/star5.png' />
+                        {/*별점*/}
+                        {/* <img className={styles.review_star} src='/img/star5.png' /> */}
+                        <div className={styles.review_star}
+                            value={selectedStar} 
+                            onChange={(e) => setSelectedStar(parseFloat(e.target.value))}>
+                            <select className={styles.select_sty}>
+                                <option value={5.0}>⭐⭐⭐⭐⭐</option>
+                                <option value={4.0}>⭐⭐⭐⭐</option>
+                                <option value={3.0}>⭐⭐⭐</option>
+                                <option value={2.0}>⭐⭐</option>
+                                <option value={1.0}>⭐</option>
+                            </select>
+                        </div>
                     </div>
                 </div>
                 <p className={styles.review_text}>솔직한 방문 후기를 남겨주세요

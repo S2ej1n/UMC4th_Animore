@@ -8,7 +8,7 @@ import ReadPage from '../ReviewReadpage/Readpage';
 import axios from 'axios';
 
 function Company() {
-    const token = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJjb3PthqDtgbAiLCJpZCI6MSwiZXhwIjoxNjkyNzYwOTc3LCJ1c2VybmFtZSI6Imtha2FvXzI4OTgyMDI5NDQifQ.4nPXZqpCskQGhYwhytA4F1pS9U0DK9sTTOMTx7wTVBGDOmiF52RQQODkLWPcgJOyP2pGUEeTnF_04RVXukYb7g';
+    const token = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJjb3PthqDtgbAiLCJpZCI6NCwiZXhwIjoxNjkyNzYxMDA0LCJ1c2VybmFtZSI6Imdvb2dsZV8xMDg1OTYwMzM2NDczMDk5ODQ3ODUifQ.uBYZMFGYe2wq6w3LzO1TPdmg6evnMtEZGQHmSszo8yaqUtGeraBjeA-YQepR5pQn1Mi_IqkMWPOFGdMTI47EFA';
 
     //예약창 열고 닫기
     const [modalOpen, setModalOpen] = useState(false);
@@ -32,6 +32,18 @@ function Company() {
 
     const strId = {storeId}
 
+    const [heartCount, setHeartCount] = useState(0);
+    const [isLiked, setIsLiked] = useState(false);
+
+    const HeartClick = () => {
+        if (isLiked) {
+            setHeartCount(heartCount - 1); 
+          } else {
+            setHeartCount(heartCount + 1);
+          }
+          setIsLiked(!isLiked); 
+    };
+
     useEffect(() => {
         axios.get(`/search/${storeId}`, {
             headers: {
@@ -42,6 +54,7 @@ function Company() {
                 // API 호출 성공 시 데이터를 상태에 저장
                 setShopInfoList(response.data.result);
                 //console.log('불러온 데이터', shopInfoList)
+                setHeartCount(response.data.result.storeLike)
             })
             .catch(error => {
                 // API 호출 실패 시 에러 처리
@@ -84,7 +97,7 @@ function Company() {
                             <img id='pickbut' src='/img/pickup.png' />
                             <img id='catbut' src='/img/cat.png' />
                             <div className='button3'>
-                                <button id='heart_but'><span id="h_icon">♡</span> 200</button>
+                                <button id='heart_but' onClick={HeartClick}><span id="h_icon">{isLiked ? '♥' : '♡'}</span>{heartCount}</button>
                                 <button id='book_but'>예약하기</button>
                                 <button id='review_but' onClick={showModal}>후기 작성</button>
                                 {modalOpen && 

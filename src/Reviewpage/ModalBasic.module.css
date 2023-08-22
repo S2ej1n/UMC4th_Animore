@@ -101,6 +101,13 @@
   }
   .review_button:hover{transform: translateY(-3px);}
 
+  .select_sty{
+    text-align: end;
+    border: none;
+    font-size: 25px;
+  }
+  .select_sty:focus {outline: 1px solid white;}
+
   /*글자수 세는 부분*/
   #text_length{
     color: #A0136A;
