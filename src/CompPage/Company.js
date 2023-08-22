@@ -17,10 +17,14 @@ function Company() {
         setModalOpen(true);
     };
 
+
+    //리뷰 정보 저장
+    const [selectedReview, setSelectedReview] = useState(null);
     //리뷰창 열고 닫기
     const [readOpen, setReadOpen] = useState(false);
     // 모달창 노출
-    const showRead = () => {
+    const showRead = (review) => {
+        setSelectedReview(review);
         setReadOpen(true);
     };
 
@@ -29,8 +33,6 @@ function Company() {
 
     //--0820 API호출----------------------
     const { storeId } = useParams();
-
-    const strId = {storeId}
 
     const [heartCount, setHeartCount] = useState(0);
     const [isLiked, setIsLiked] = useState(false);
@@ -44,6 +46,9 @@ function Company() {
           setIsLiked(!isLiked); 
     };
 
+    //------0823 샵 리뷰 모아보기 상태 저장---------
+    const [reviewState, setReviewState] = useState([])
+
     useEffect(() => {
         axios.get(`/search/${storeId}`, {
             headers: {
@@ -53,15 +58,32 @@ function Company() {
             .then(response => {
                 // API 호출 성공 시 데이터를 상태에 저장
                 setShopInfoList(response.data.result);
-                //console.log('불러온 데이터', shopInfoList)
-                setHeartCount(response.data.result.storeLike)
+                console.log('불러온 데이터', shopInfoList);
+                setHeartCount(response.data.result.storeLike);
             })
             .catch(error => {
                 // API 호출 실패 시 에러 처리
                 console.error('API 호출 에러:', error);
             });
+
+        //(0823)2. 리뷰 api 호출---------------
+        axios.get(`/reviews/store/${storeId}`, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        })
+        .then(response => {
+            //상태저장
+            setReviewState(response.data.result);
+            console.log(reviewState);
+        })
+        .catch(error => {
+            // 두 번째 API 호출 실패 시 처리
+            console.error('두 번째 API 호출 에러:', error);
+        });
     }, []);
 
+    console.log(reviewState);
     return (
         <div>
             <div className="info">
@@ -115,19 +137,17 @@ function Company() {
             <div className="review_box">
                 <p id='re_text'>이용후기</p>
                 <div className="review">
-                    <div className='re1' onClick={showRead}>
-                        <img src='/img/dog.png' />
-                        <p>미용 싫어하는 금쪽이의 변화</p>
-                    </div>
-                    {readOpen && <ReadPage setReadOpen={setReadOpen}/>}
-                    <div className='re1'>
-                        <img src='/img/image58.png' />
-                        <p>미용 싫어하는 금쪽이의 변화</p>
-                    </div>
-                    <div className='re1'>
-                        <img src='/img/image59.png' />
-                        <p>미용 싫어하는 금쪽이의 변화</p>
-                    </div>
+                    {reviewState.map((review, index) => (
+                        <div key={index} className='re1' onClick={() => showRead(review)}>
+                            <img src={review.images[0] ? review.images[0].imageUrls : '/img/dog.png'}/>
+                            <div>
+                                <p>미용 싫어하는 금쪽이의 변화</p>
+                                <p>{review.reviewContent}</p>
+                            </div>
+                        </div>
+                    ))}
+                    {readOpen && <ReadPage setReadOpen={setReadOpen}
+                    token={token} review={selectedReview}/>}
                 </div>
             </div>
         </div>
